@@ -130,6 +130,7 @@ We can directly use the mixed-in generic views rather than above approach
 """
 
 from rest_framework import permissions
+from .permissions import IsOwnerOrReadOnly
 
 
 class SnippetList(generics.ListCreateAPIView):
@@ -156,7 +157,8 @@ class SnippetList(generics.ListCreateAPIView):
 class SnippetDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Snippet.objects.all()
     serializer_class = SnippetSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly,
+                          IsOwnerOrReadOnly]
 
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)

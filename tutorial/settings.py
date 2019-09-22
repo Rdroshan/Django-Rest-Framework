@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'snippets.apps.SnippetsConfig',  # or you can use the name give in SnippetsConfig class in apps.py
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
