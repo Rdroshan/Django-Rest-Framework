@@ -39,6 +39,8 @@ class SnippetSerializer(serializers.ModelSerializer):
     ReadOnlyField is untyped field, that means it is readonly and will only be used for serializer
     representations, but will not be used for updating model instances when they are deserialized.
     """
+    owner = serializers.ReadOnlyField(source='owner.username')
+    
     class Meta:
         model = Snippet
         fields = ['id', 'title', 'code', 'linenos', 'language', 'style']
