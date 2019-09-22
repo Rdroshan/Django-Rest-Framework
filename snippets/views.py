@@ -140,6 +140,14 @@ class SnippetList(generics.ListCreateAPIView):
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
 
+    """
+    Right now if we created a snippet instance, There is no way of attaching the user who created the snippet.
+    because The user isn't sent as a part of the serialized representation, but is instead a property of the incoming
+    request.
+    """
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
 
 class SnippetDetail(generics.RetrieveUpdateDestroyAPIView):
     def get(self, request, *args, **kwargs):
