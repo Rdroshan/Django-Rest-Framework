@@ -39,7 +39,23 @@ class SnippetSerializer(serializers.ModelSerializer):
     ReadOnlyField is untyped field, that means it is readonly and will only be used for serializer
     representations, but will not be used for updating model instances when they are deserialized.
     """
+    owner = serializers.ReadOnlyField(source='owner.username')
+
     class Meta:
         model = Snippet
-        fields = ['id', 'title', 'code', 'linenos', 'language', 'style']
+        fields = ['id', 'title', 'code', 'linenos', 'language', 'style', 'owner']
 
+
+from django.contrib.auth.models import User
+
+
+class UserSerializer(serializers.ModelSerializer):
+    snippets = serializers.PrimaryKeyRelatedField(many=True, queryset=Snippet.objects.all())
+
+    class Meta:
+        model = User
+        """
+        Because snippets is a reverse relation on User model, it will not be included by default when 
+        using ModelSerializer.
+        """
+        fields = ['id', 'username', 'snippets']
