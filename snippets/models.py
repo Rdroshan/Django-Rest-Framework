@@ -26,8 +26,7 @@ class Snippet(models.Model):
     for more understanding, refer this: https://stackoverflow.com/questions/17328910/django-what-is-reverse-relationship
     """
     owner = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name="snippets")
-    highlighted = models.TextField()
-
+    
     class Meta:
         ordering = ['created']
 
