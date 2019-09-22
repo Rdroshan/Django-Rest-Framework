@@ -40,7 +40,7 @@ class SnippetSerializer(serializers.ModelSerializer):
     representations, but will not be used for updating model instances when they are deserialized.
     """
     owner = serializers.ReadOnlyField(source='owner.username')
-    
+
     class Meta:
         model = Snippet
         fields = ['id', 'title', 'code', 'linenos', 'language', 'style']

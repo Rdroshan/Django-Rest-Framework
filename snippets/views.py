@@ -129,10 +129,13 @@ from rest_framework import generics
 We can directly use the mixed-in generic views rather than above approach
 """
 
+from rest_framework import permissions
+
 
 class SnippetList(generics.ListCreateAPIView):
     queryset = Snippet.objects.all()
     serializer_class = SnippetSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
@@ -145,11 +148,16 @@ class SnippetList(generics.ListCreateAPIView):
     because The user isn't sent as a part of the serialized representation, but is instead a property of the incoming
     request.
     """
+
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
 
 class SnippetDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Snippet.objects.all()
+    serializer_class = SnippetSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
 
