@@ -222,15 +222,18 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
 
 from rest_framework.decorators import api_view
 from rest_framework.reverse import reverse
-from rest_framework.response import Response
+# from rest_framework.response import Response
 
-
-@api_view(['GET'])
-def api_root(request, format=None):
-    return Response({
-        'users': reverse('user-list', request=request, format=format),
-        'snippets': reverse('snippet-list', request=request, format=format)
-    })
+"""
+    api_root view is automatically created by default router.
+    reference: https://www.django-rest-framework.org/tutorial/6-viewsets-and-routers/#using-routers
+"""
+# @api_view(['GET'])
+# def api_root(request, format=None):
+#     return Response({
+#         'users': reverse('user-list', request=request, format=format),
+#         'snippets': reverse('snippet-list', request=request, format=format)
+#     })
 
 
 # from rest_framework import renderers
